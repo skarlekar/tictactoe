@@ -5,6 +5,7 @@ let currentPlayer = 'X';
 let gameState = ['', '', '', '', '', '', '', '', ''];
 let gameActive = true;
 let vsComputer = true;
+let aiDifficulty = 'easy';
 
 const winningConditions = [
     [0, 1, 2],
@@ -25,6 +26,11 @@ function createBoard() {
         cell.addEventListener('click', handleCellClick);
         board.appendChild(cell);
     }
+    
+    const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+    difficultyButtons.forEach(btn => {
+        btn.addEventListener('click', handleDifficultyChange);
+    });
 }
 
 function handleCellClick(e) {
@@ -39,6 +45,14 @@ function handleCellClick(e) {
         status.textContent = "Computer is thinking...";
         setTimeout(computerMove, 500);
     }
+}
+
+function handleDifficultyChange(e) {
+    const buttons = document.querySelectorAll('.difficulty-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    e.target.classList.add('active');
+    aiDifficulty = e.target.getAttribute('data-difficulty');
+    resetGame();
 }
 
 function makeMove(cellIndex) {
@@ -64,7 +78,18 @@ function makeMove(cellIndex) {
 
 function computerMove() {
     if (gameActive) {
-        const bestMove = findBestMove();
+        let bestMove;
+        switch (aiDifficulty) {
+            case 'easy':
+                bestMove = findRandomMove();
+                break;
+            case 'medium':
+                bestMove = Math.random() < 0.5 ? findRandomMove() : findBestMove();
+                break;
+            case 'hard':
+                bestMove = findBestMove();
+                break;
+        }
         makeMove(bestMove);
     }
 }
@@ -84,6 +109,14 @@ function findBestMove() {
         }
     }
     return bestMove;
+}
+
+function findRandomMove() {
+    const availableMoves = gameState.reduce((acc, cell, index) => {
+        if (cell === '') acc.push(index);
+        return acc;
+    }, []);
+    return availableMoves[Math.floor(Math.random() * availableMoves.length)];
 }
 
 function minimax(board, depth, isMaximizing) {
