@@ -39,7 +39,18 @@
                 filter: hue-rotate(360deg);
             }
         }
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .game-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-left: -100px; /* Adjust this value to move everything left */
+        }
+        .main-content {
             text-align: center;
             background-color: white;
             padding: 2rem;
@@ -116,22 +127,18 @@
             width: 0;
             transform-origin: left center;
         }
-        .game-wrapper {
-            display: flex;
-            align-items: center; /* Changed from flex-start to center */
-            gap: 20px;
-        }
         .difficulty-bar {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            align-self: center; /* Added to center the difficulty bar vertically */
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .difficulty-bar h3 {
             margin-bottom: 10px;
+            color: #333;
         }
         .difficulty-btn {
             width: 100%;
@@ -150,13 +157,20 @@
             background-color: #4CAF50;
             color: white;
         }
+        #boardSize {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
     </style>
 </head>
 <body>
-    <div class="super-title">TIC TAC TOE</div> <!-- Updated Super Title -->
-    <div class="game-container">
-        <h1>You vs AI</h1> <!-- Main Title -->
-        <div class="game-wrapper">
+    <div class="content-wrapper">
+        <div class="super-title">TIC TAC TOE</div>
+        <div class="game-container">
             <div class="difficulty-bar">
                 <h3>AI Difficulty</h3>
                 <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
@@ -170,10 +184,13 @@
                     <option value="5">5x5</option>
                 </select>
             </div>
-            <div class="board" id="board"></div>
+            <div class="main-content">
+                <h1>You vs AI</h1>
+                <div class="board" id="board"></div>
+                <div id="status"></div>
+                <button id="resetBtn">New Game</button>
+            </div>
         </div>
-        <div id="status"></div>
-        <button id="resetBtn">New Game</button>
     </div>
     <script src="script.js"></script>
 </body>
