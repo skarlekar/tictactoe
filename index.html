@@ -3,23 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe vs AI</title>
+    <title>You vs AI</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+        
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
+        }
+        .super-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorChange 5s infinite alternate;
+        }
+        @keyframes colorChange {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
         }
         .game-container {
             text-align: center;
             background-color: white;
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         h1 {
             color: #333;
@@ -128,14 +153,22 @@
     </style>
 </head>
 <body>
+    <div class="super-title">TIC TAC TOE</div> <!-- Updated Super Title -->
     <div class="game-container">
-        <h1>Tic Tac Toe vs AI</h1>
+        <h1>You vs AI</h1> <!-- Main Title -->
         <div class="game-wrapper">
             <div class="difficulty-bar">
                 <h3>AI Difficulty</h3>
                 <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
                 <button class="difficulty-btn" data-difficulty="medium">Medium</button>
                 <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+                
+                <h3>Board Size</h3>
+                <select id="boardSize">
+                    <option value="3">3x3</option>
+                    <option value="4">4x4</option>
+                    <option value="5">5x5</option>
+                </select>
             </div>
             <div class="board" id="board"></div>
         </div>
